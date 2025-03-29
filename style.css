@@ -1,0 +1,87 @@
+:root{
+
+}
+body{
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+background-color: antiquewhite;
+}
+h1{
+    white-space:pre;
+    text-align: center;
+}
+h2{
+    margin: 0;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: white;
+
+}
+.dropDown{
+    background-color: blueviolet;
+    width: 100%;
+    /* z-index: 2;
+    position: relative; */
+}
+.dropDown__Town__Content{
+    display: none;
+    height: 0;
+    transition: all .2s;
+}
+.dropDown:hover .dropDown__Town__Content{
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    /* position: relative; */
+    z-index: 2;
+    overflow-y: scroll;
+}
+.dropDown__Town__Content:hover{
+    cursor: pointer;
+    background-color: cadetblue;
+}
+#cities{
+
+    display: flex;
+    width: 75%;
+    height: 55px;
+    align-self: center;   
+    /* height: 100px; */
+    font-size: large;
+}
+#cities:hover option{
+cursor: pointer;
+background-color: gray;
+}
+.cities__Select{
+    display: flex;
+    width: 75%;
+    height: 55px;
+    align-self: center;   
+    /* height: 100px; */
+    font-size: large;
+}
+.card__Main__img{
+    height: 256px;
+    width: 256px;
+    aspect-ratio: 4/3;
+    border: solid black;
+}
+
+.card2_col1{
+    display: flex;
+}
+.card2__col1__section{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

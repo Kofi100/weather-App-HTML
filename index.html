@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App Using OpenWeather API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+    <h1>Weather App 
+Using OpenWeather API</h1>
+    <!-- <h2>Using OpenWeather API</h2> -->
+    <img src="assets/images/pictures/clouds_real.jpeg" alt="" class="card__Main__img">
+    <h2 class="weather__Text">Weather</h2>
+    <p>Location</p>
+
+    <!-- previous drop down list attempt -->
+    <!-- <div class="dropDown">Accra
+        <div class="dropDown__Town__Content">
+            <p class="dropDown__Town__Content__Options" id="Option_Accra">Accra</p>
+            <p class="dropDown__Town__Content__Options 1" id="Option_Kumasi">Kumasi</p>
+            <p class="dropDown__Town__Content__Options 3" id="Option_Takoradi">Takoradi</p>
+        </div>
+    </div> -->
+
+
+        <!-- <label for="cities">Select a city.</label> -->
+        <select id="cities">
+            <option value="Accra">Accra</option>
+            <option value="Kumasi">Kumasi</option>
+            <option value="Takoradi">Takoradi</option>
+            <option value="Cape Coast">Cape Coast</option>
+            <option value="Dubai">Dubai</option>
+            <!-- <option value=""></option> -->
+
+
+
+        </select>
+    
+    <p>Temp</p>
+<h2 class="temp" id="temp">30 <sup>o</sup>C</h2> 
+
+</div>
+
+<!-- <div class="card">
+    <h1>Other cities</h1>
+    <div class="card2_col1">
+    <div class="card2__section1 card2__col1__section">
+        <select id="cities_Alt1" class="cities__Select">
+            <option value="Accra">Accra</option>
+            <option value="Kumasi">Kumasi</option>
+            <option value="Takoradi">Takoradi</option>
+            <option value="Cape Coast">Cape Coast</option>
+            <option value="Dubai">Dubai</option>
+            
+
+
+
+        </select>
+        <img src="" alt="" class="card__Main__img">
+        <h2 id="cities_Alt1_Weather">Cloudy</h2>
+        <h2 id="cities_Alt1_Temp">24oC</h2>
+    </div>
+    <div class="card2__section2 card2__col1__section" >
+        <select id="cities_Alt2" class="cities__Select">
+            <option value="Accra">Accra</option>
+            <option value="Kumasi">Kumasi</option>
+            <option value="Takoradi">Takoradi</option>
+            <option value="Cape Coast">Cape Coast</option>
+            <option value="Dubai">Dubai</option>
+            
+
+
+
+        </select>
+        <img src="" alt="" class="card__Main__img">
+        <h2 id="cities_Alt2_Weather">Rain</h2>
+        <h2 id="cities_Alt2_Temp">23oC</h2>
+    </div></div>
+</div> -->
+</body>
+<script>
+    let index=0;
+    let city="accra";
+    let cityAlt=["kumasi","takoradi"];
+    let address=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a949270c9a63c06e777a74b321542065&units=metric`;
+    let address_cityAlt1=`https://api.openweathermap.org/data/2.5/weather?q=${cityAlt[0]}&appid=a949270c9a63c06e777a74b321542065&units=metric`;
+    let address_cityAlt2=`https://api.openweathermap.org/data/2.5/weather?q=${cityAlt[1]}&appid=a949270c9a63c06e777a74b321542065&units=metric`;
+    // function getCity(elementTaken) {
+    // function getCity(elementTaken) {
+    //     if (elementTaken) {
+    //         city=elementTaken.innerText;
+    //     }
+        
+    // }
+    function getCity(cityName) {
+        index+=1;
+        city=cityName;
+        address=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=a949270c9a63c06e777a74b321542065&units=metric`;
+        console.log("City selected: ",cityName,",index: ",index);
+        console.log("Address: ",address);
+        
+        // code below prints out the webpage.
+        // print();
+        fetchWeather();
+        
+    }
+    // previous code for dropDown Attempt 1
+        // document.getElementById("Option_Accra").addEventListener("click",()=>{getCity("Accra")});
+        // document.getElementById("Option_Kumasi").addEventListener("click",()=>(getCity("Kumasi")));
+        // document.getElementById("Option_Takoradi").addEventListener("click",()=>{getCity("Takoradi")});
+        var citySelect=document.getElementById("cities");
+        citySelect.addEventListener("click",getCityOption);
+        function getCityOption() {
+            
+            var cityTxt=citySelect.options[citySelect.selectedIndex].text;
+            getCity(cityTxt);
+            
+        }
+    
+    
+    function fetchWeather(){
+
+         fetch(address).then(res=>{
+        
+        // console.log(res.json());
+        return res.json();
+    }  
+    )
+    .then(data=>{
+        console.log("Data",data);
+        console.log(data["main"]);
+        console.log(data["main"]["temp"]);
+        console.log(document.getElementsByClassName("temp"));
+
+  
+
+
+        let a=document.getElementsByClassName("temp");
+        let WeatherTxtArray=document.getElementsByClassName("weather__Text");
+        let CityOptions=document.getElementsByClassName("dropDown__Town__Content__Options");
+        // document.getElementsByClassName("temp")[0].innerHTML=data["main"]["temp"].toString();
+        // a.forEach(element => {
+            
+        // });
+        for (let tempElement = 0; tempElement < a.length; tempElement++) {
+            const element = a[tempElement];
+            element.innerHTML=data["main"]["temp"].toString()+" <sup>o</sup>C";
+            
+        }
+        for (let i = 0; i < WeatherTxtArray.length; i++) {
+            const element = WeatherTxtArray[i];
+            element.innerText=data["weather"][0]["main"];
+            
+        }
+        // for (let index = 0; index < CityOptions.length; index++) {
+        //     const element = CityOptions[index];
+        //     element.addEventListener("click",getCity);
+            
+        // }
+
+
+        // var option1=document.querySelectorAll("dropDown__Town__Content__Options","1");
+        // console.log(option1);
+        
+        // option1.forEach(element=>{
+        //     element.addEventListener("click",()=>{getCity(element)})
+        // }
+
+        // )
+        changePicture();
+   
+
+    })
+    .catch(error=>console.log(error)
+    )
+    }
+
+    document.getElementById("citiesAlt_1").addEventListener("click",function name() {
+        var text=document.getElementById("citiesAlt_1").options[document.getElementById("citiesAlt_1").selectedIndex].text;
+        getCity(text);
+        
+    })
+    function fetchWeatherAlt(addressAlt,optionNo) {
+        fetch (addressAlt).then(res=>{
+            return res.json();
+        }).then(data=>{
+            switch (optionNo) {
+                case 0:
+                    document.getElementById("cities_Alt1_Temp").innerText=data["main"]["temp"].toString();
+                    document.getElementById("cities_Alt1_Weather").innerText=data["weather"][0]["main"];
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+        }).catch(error=>console.log(error)
+        )
+        
+    }
+    fetchWeather();
+    function changePicture() {
+        var img=document.getElementsByClassName("card__Main__img")[0];
+        var textElement=document.getElementsByClassName("weather__Text")[0];
+        var text=textElement.innerText;
+        switch (text) {
+            case "Rain":
+                img.src="assets/images/pictures/rain_real.jpeg";
+                break;
+            case "Clouds":
+                img.src="assets/images/pictures/clouds_real.jpeg";
+                break;
+            case "Thunderstorm":
+                img.src="assets/images/pictures/thunderstorm-and-lightning_real.jpeg";
+                break;
+            case "Clear":
+                img.src="assets/images/pictures/pexels-asphotograpy-96622-clear-real.jpg";
+                break;
+            default:
+                break;
+        }
+        
+    }
+   
+</script>
+</html>

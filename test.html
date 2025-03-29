@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get InnerText Example</title>
+</head>
+<body>
+    <p class="info">This is some information.</p>
+    <p class="info">This is more information.</p>
+    <button id="getTextButton">Get Text</button>
+
+    <script>
+        // Function that handles the innerText of an element
+        function processElementInnerText(element) {
+            console.log(`Element text: ${element.innerText}`);
+            // Additional processing can be done here
+        }
+
+        // Function to get elements by selector and process each element
+        function getElementsAndProcess(selector) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                processElementInnerText(element);
+            });
+        }
+
+        document.getElementById('getTextButton').addEventListener('click', () => {
+            getElementsAndProcess('.info');
+        });
+    </script>
+</body>
+</html>
